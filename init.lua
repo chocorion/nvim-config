@@ -1,0 +1,5 @@
+require('settings')
+require('plugins')
+require('plugins_config')
+require('colorschemes')
+require('mappings')
