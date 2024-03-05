@@ -678,6 +678,7 @@ require('lazy').setup({
         -- is found.
         javascript = { { 'prettierd', 'prettier' } },
         typescript = { { 'prettierd', 'prettier' } },
+        angular = { { 'prettierd', 'prettier' } },
         html = { { 'prettierd', 'prettier' } },
         css = { { 'prettierd', 'prettier' } },
         scss = { { 'prettierd', 'prettier' } },
@@ -726,6 +727,7 @@ require('lazy').setup({
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
+      luasnip.filetype_extend('angular', { 'html' })
 
       cmp.setup {
         snippet = {
@@ -877,7 +879,7 @@ require('lazy').setup({
       require('nvim-treesitter.install').prefer_git = true
       ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup {
-        ensure_installed = { 'bash', 'html', 'lua', 'markdown', 'vim', 'vimdoc', 'typescript', 'css', 'scss', 'javascript' },
+        ensure_installed = { 'bash', 'html', 'lua', 'markdown', 'vim', 'vimdoc', 'typescript', 'css', 'scss', 'javascript', 'angular' },
         -- Autoinstall languages that are not installed
         auto_install = true,
         highlight = { enable = true },
@@ -890,6 +892,16 @@ require('lazy').setup({
       --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
       --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+
+      vim.api.nvim_create_autocmd({ 'BufRead', 'BufEnter' }, {
+        pattern = { '*.component.html' },
+        desc = 'Set filetype to angular',
+        group = vim.api.nvim_create_augroup('angular', { clear = true }),
+        callback = function()
+          vim.api.nvim_set_option_value('filetype', 'angular', { buf = vim.api.nvim_get_current_buf() })
+          vim.api.nvim_set_option_value('commentstring', '<!--%s-->', { buf = vim.api.nvim_get_current_buf() })
+        end,
+      })
     end,
   },
 
