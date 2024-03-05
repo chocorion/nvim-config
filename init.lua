@@ -18,7 +18,6 @@
 ========                                                     ========
 =====================================================================
 =====================================================================
-
 What is Kickstart?
 
   Kickstart.nvim is *not* a distribution.
@@ -247,11 +246,6 @@ require('lazy').setup({
   --
   -- Use `opts = {}` to force a plugin to be loaded.
   --
-  --  This is equivalent to:
-  --    require('Comment').setup({})
-
-  -- "gc" to comment visual regions/lines
-  -- { 'numToStr/Comment.nvim', opts = {} },
 
   -- Here is a more advanced example where we pass configuration
   -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
@@ -838,7 +832,7 @@ require('lazy').setup({
       -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
-      require('mini.surround').setup()
+      -- require('mini.surround').setup()
       require('mini.comment').setup()
 
       -- Simple and easy statusline.
@@ -942,6 +936,27 @@ require('lazy').setup({
     },
   },
   { import = 'custom.plugins' },
+})
+
+local ls = require 'luasnip'
+local sn = ls.snippet_node
+local i = ls.insert_node
+local t = ls.text_node
+local d = ls.dynamic_node
+local fmt = require('luasnip.extras.fmt').fmt
+local postfix = require('luasnip.extras.postfix').postfix
+
+ls.add_snippets('typescript', {
+  postfix('.const', {
+    d(1, function(_, parent)
+      return sn(
+        1,
+        fmt('const {} = ' .. parent.snippet.env.POSTFIX_MATCH, {
+          i(1, 'name'),
+        })
+      )
+    end),
+  }),
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
