@@ -1,5 +1,4 @@
 --[[
-
 =====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
 =====================================================================
@@ -161,6 +160,20 @@ vim.opt.scrolloff = 10
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+-- More convenient esc
+vim.keymap.set('i', 'jk', '<Esc>')
+vim.keymap.set('v', '<', '<gv')
+vim.keymap.set('v', '>', '>gv')
+
+vim.keymap.set('n', '<leader>fw', '<cmd>w!<cr>', { desc = '[w]rite current file' })
+vim.keymap.set('n', '<leader>fq', '<cmd>q!<cr>', { desc = '[q]uit current file' })
+vim.keymap.set('n', '<leader>fx', '<cmd>x<cr>', { desc = '[x] wq! current file' })
+vim.keymap.set('n', '<leader>fv', '<cmd>vsplit<cr>', { desc = '[v]ertical split' })
+vim.keymap.set('n', '<leader>fh', '<cmd>split<cr>', { desc = '[h]orizontal split' })
+
+vim.keymap.set('n', 'gh', '^', { desc = 'Go to line start' })
+vim.keymap.set('n', 'gl', '$', { desc = 'Go to line end' })
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
@@ -238,7 +251,7 @@ require('lazy').setup({
   --    require('Comment').setup({})
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  -- { 'numToStr/Comment.nvim', opts = {} },
 
   -- Here is a more advanced example where we pass configuration
   -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
@@ -281,8 +294,10 @@ require('lazy').setup({
 
       -- Document existing key chains
       require('which-key').register {
+        ['<leader>a'] = { name = '[A]ngular', _ = 'which_key_ignore' },
         ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
         ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
+        ['<leader>f'] = { name = '[F]ile', _ = 'which_key_ignore' },
         ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
         ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
         ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
@@ -575,7 +590,11 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        -- tsserver = {},
+        tsserver = {},
+        angularls = {},
+        cssls = {},
+        emmet_language_server = {},
+        eslint = {},
         --
 
         lua_ls = {
@@ -657,7 +676,11 @@ require('lazy').setup({
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
-        -- javascript = { { "prettierd", "prettier" } },
+        javascript = { { 'prettierd', 'prettier' } },
+        typescript = { { 'prettierd', 'prettier' } },
+        html = { { 'prettierd', 'prettier' } },
+        css = { { 'prettierd', 'prettier' } },
+        scss = { { 'prettierd', 'prettier' } },
       },
     },
   },
@@ -777,14 +800,13 @@ require('lazy').setup({
     -- Change the name of the colorscheme plugin below, and then
     -- change the command in the config to whatever the name of that colorscheme is.
     --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`
+    'shatur/neovim-ayu',
+    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000, -- make sure to load this before all the other start plugins
+    config = function()
+      -- Load the colorscheme here
+      vim.cmd.colorscheme 'ayu-light'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
@@ -811,6 +833,7 @@ require('lazy').setup({
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
+      require('mini.comment').setup()
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
@@ -853,7 +876,13 @@ require('lazy').setup({
       -- Prefer git instead of curl in order to improve connectivity in some environments
       require('nvim-treesitter.install').prefer_git = true
       ---@diagnostic disable-next-line: missing-fields
-      require('nvim-treesitter.configs').setup(opts)
+      require('nvim-treesitter.configs').setup {
+        ensure_installed = { 'bash', 'html', 'lua', 'markdown', 'vim', 'vimdoc', 'typescript', 'css', 'scss', 'javascript' },
+        -- Autoinstall languages that are not installed
+        auto_install = true,
+        highlight = { enable = true },
+        indent = { enable = true },
+      }
 
       -- There are additional nvim-treesitter modules that you can use to interact
       -- with nvim-treesitter. You should go explore a few and see what interests you:
@@ -886,7 +915,6 @@ require('lazy').setup({
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   -- { import = 'custom.plugins' },
-}, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
@@ -906,6 +934,7 @@ require('lazy').setup({
       lazy = '💤 ',
     },
   },
+  { import = 'custom.plugins' },
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
