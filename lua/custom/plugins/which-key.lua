@@ -41,6 +41,9 @@ return {
 
       { '<leader>x', group = 'Diagnostic' },
       { '<leader>x_', hidden = true },
+
+      { '<leader>t', group = 'Test' },
+      { '<leader>t_', hidden = true },
     }
     -- visual mode
 
