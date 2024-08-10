@@ -1,6 +1,6 @@
 return { -- Autocompletion
   'hrsh7th/nvim-cmp',
-  event = 'InsertEnter',
+  event = 'TextChanged',
   dependencies = {
     -- Snippet Engine & its associated nvim-cmp source
     {
@@ -47,7 +47,10 @@ return { -- Autocompletion
           luasnip.lsp_expand(args.body)
         end,
       },
-      completion = { completeopt = 'menu,menuone,noinsert' },
+      completion = {
+        keyword_length = 1,
+        completeopt = 'menu,menuone,noinsert',
+      },
 
       -- For an understanding of why these mappings were
       -- chosen, you will need to read `:help ins-completion`
