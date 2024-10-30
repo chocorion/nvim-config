@@ -4,7 +4,7 @@ return {
   keys = {
     -- 👇 in this section, choose your own keymappings!
     {
-      '<leader>-',
+      '<leader>o',
       '<cmd>Yazi<cr>',
       desc = 'Open yazi at the current file',
     },
@@ -27,19 +27,4 @@ return {
       show_help = '<f1>',
     },
   },
-  config = function()
-    vim.api.nvim_create_autocmd('FileType', {
-      pattern = 'yazi',
-      callback = function()
-        vim.api.nvim_del_keymap('i', 'jk')
-      end,
-    })
-
-    vim.api.nvim_create_autocmd('BufLeave', {
-      pattern = 'yazi',
-      callback = function()
-        vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true })
-      end,
-    })
-  end,
 }
