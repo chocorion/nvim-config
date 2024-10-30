@@ -101,7 +101,10 @@ return { -- LSP Configuration & Plugins
       --    https://github.com/pmizio/typescript-tools.nvim
       --
       -- But for many setups, the LSP (`tsserver`) will work just fine
-      tsserver = {},
+      ts_ls = {},
+      somesass_ls = {
+        filetypes = { 'angular.html', 'scss', 'sass' },
+      },
       angularls = {
         filetypes = { 'angular.html', 'typescript', 'javascript' },
       },
