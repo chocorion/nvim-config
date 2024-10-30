@@ -36,6 +36,7 @@ vim.opt.tabstop = 4
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
+vim.keymap.set('i', 'jk', '<esc>')
 
 vim.keymap.set('n', 'U', '<C-r>', { noremap = true })
 
