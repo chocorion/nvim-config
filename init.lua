@@ -46,8 +46,8 @@ vim.keymap.set('v', '>', '>gv')
 vim.keymap.set('n', '<leader>fw', '<cmd>w!<cr>', { desc = '[w]rite current file' })
 vim.keymap.set('n', '<leader>fq', '<cmd>q!<cr>', { desc = '[q]uit current file' })
 vim.keymap.set('n', '<leader>fx', '<cmd>x<cr>', { desc = '[x] wq! current file' })
+vim.keymap.set('n', '<leader>fs', '<cmd>split<cr>', { desc = 'split' })
 vim.keymap.set('n', '<leader>fv', '<cmd>vsplit<cr>', { desc = '[v]ertical split' })
-vim.keymap.set('n', '<leader>fh', '<cmd>split<cr>', { desc = '[h]orizontal split' })
 
 vim.keymap.set({ 'n', 'v' }, 'H', '^', { desc = 'Go to line start' })
 vim.keymap.set({ 'n', 'v' }, 'L', '$', { desc = 'Go to line end' })
@@ -121,10 +121,28 @@ require('lazy').setup {
   require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
-  require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns',
   { import = 'custom.plugins' },
 }
+
+-- My own lsp server
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'scss', 'sass' },
+  callback = function()
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+
+    local config = {
+      name = 'scss_go_def',
+      cmd = { 'node', '/home/rob/Documents/Dev/Projects/scss-go-def/server/out/server.js', '--stdio' },
+      filetypes = { 'scss', 'sass' },
+      capabilities = vim.lsp.protocol.make_client_capabilities(),
+      autostart = true,
+    }
+
+    vim.lsp.start(config)
+  end,
+})
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
