@@ -30,7 +30,7 @@ return {
       map('n', 'gr', require('telescope.builtin').lsp_references)
       map('n', 'gI', require('telescope.builtin').lsp_implementations)
       map('n', '<leader>D', require('telescope.builtin').lsp_type_definitions)
-      map('n', '<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols)
+      -- map('n', '<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols)
       map('n', '<leader>lr', vim.lsp.buf.rename)
       map('n', '<leader>la', vim.lsp.buf.code_action)
       -- map('n', '<leader>lf', vim.lsp.buf.format) Managed by confort

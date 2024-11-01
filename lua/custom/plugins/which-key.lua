@@ -6,47 +6,56 @@ return {
 
     -- Document existing key chains
     wk.add {
-      { '<leader>a', group = '[A]ngular' },
+      { '<leader>a', group = '[a]ngular' },
       { '<leader>a_', hidden = true },
 
-      { '<leader>l', group = '[L]sp' },
+      { '<leader>l', group = '[l]sp' },
       { '<leader>l_', hidden = true },
 
-      { '<leader>d', group = '[D]ocument' },
+      { '<leader>d', group = '[d]ocument' },
       { '<leader>d_', hidden = true },
 
-      { '<leader>f', group = '[F]ile' },
+      { '<leader>f', group = '[f]ile' },
       { '<leader>f_', hidden = true },
 
-      { '<leader>fh', group = '[H]arpoon' },
+      { '<leader>g', group = '[g]it' },
+      { '<leader>g_', hidden = true },
+
+      { '<leader>gh', group = '[h]unk' },
+      { '<leader>gh_', hidden = true },
+
+      { '<leader>fh', group = '[h]arpoon' },
       { '<leader>fh_', hidden = true },
 
-      { '<leader>h', group = 'Git [H]unk' },
-      { '<leader>h_', hidden = true },
-
-      { '<leader>r', group = '[R]ename' },
+      { '<leader>r', group = '[r]ename' },
       { '<leader>r_', hidden = true },
 
-      { '<leader>s', group = '[S]earch' },
+      { '<leader>s', group = '[s]earch' },
       { '<leader>s_', hidden = true },
 
       { '<leader>S', group = '[S]earch all files' },
       { '<leader>S_', hidden = true },
 
-      { '<leader>t', group = '[T]oggle' },
+      { '<leader>T', group = '[T]oggle' },
+      { '<leader>T_', hidden = true },
+
+      { '<leader>t', group = '[t]ab' },
       { '<leader>t_', hidden = true },
 
-      { '<leader>w', group = '[W]orkspace' },
+      { '<leader>w', group = '[w]indow' },
       { '<leader>w_', hidden = true },
 
       { '<leader>x', group = 'Diagnostic' },
       { '<leader>x_', hidden = true },
 
-      { '<leader>t', group = 'Test' },
-      { '<leader>t_', hidden = true },
-    }
-    -- visual mode
+      { '<leader>p', group = '[p]roject' },
+      { '<leader>p_', hidden = true },
 
+      { '<leader>pt', group = '[t]est' },
+      { '<leader>pt_', hidden = true },
+    }
+
+    -- visual mode
     wk.add {
       { '<leader>h', desc = 'Git [H]unk', mode = 'v' },
     }

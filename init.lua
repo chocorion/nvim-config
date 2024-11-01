@@ -3,9 +3,13 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = true
 
+-- Disable netrw
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = 1
+
 -- [[ Setting options ]]
 -- See `:help vim.opt`
-
+vim.opt.showtabline = 2
 vim.opt.number = true
 vim.opt.mouse = 'a'
 vim.opt.showmode = false -- already in status line
@@ -46,8 +50,8 @@ vim.keymap.set('v', '>', '>gv')
 vim.keymap.set('n', '<leader>fw', '<cmd>w!<cr>', { desc = '[w]rite current file' })
 vim.keymap.set('n', '<leader>fq', '<cmd>q!<cr>', { desc = '[q]uit current file' })
 vim.keymap.set('n', '<leader>fx', '<cmd>x<cr>', { desc = '[x] wq! current file' })
-vim.keymap.set('n', '<leader>fs', '<cmd>split<cr>', { desc = 'split' })
-vim.keymap.set('n', '<leader>fv', '<cmd>vsplit<cr>', { desc = '[v]ertical split' })
+vim.keymap.set('n', '<leader>wh', '<cmd>split<cr>', { desc = '[h]orizontal split' })
+vim.keymap.set('n', '<leader>wv', '<cmd>vsplit<cr>', { desc = '[v]ertical split' })
 
 vim.keymap.set({ 'n', 'v' }, 'H', '^', { desc = 'Go to line start' })
 vim.keymap.set({ 'n', 'v' }, 'L', '$', { desc = 'Go to line end' })
@@ -134,7 +138,7 @@ vim.api.nvim_create_autocmd('FileType', {
 
     local config = {
       name = 'scss_go_def',
-      cmd = { 'node', '/home/rob/Documents/Dev/Projects/scss-go-def/server/out/server.js', '--stdio' },
+      cmd = { 'bun', '/home/rob/Documents/Dev/Projects/scss-go-def-lsp/src/server.ts', '--stdio' },
       filetypes = { 'scss', 'sass' },
       capabilities = vim.lsp.protocol.make_client_capabilities(),
       autostart = true,

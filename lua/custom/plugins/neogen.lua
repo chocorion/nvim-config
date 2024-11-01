@@ -1,3 +1,4 @@
+-- Annotation plugin
 return {
   'danymat/neogen',
   opts = {
