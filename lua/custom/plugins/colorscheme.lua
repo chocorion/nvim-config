@@ -14,10 +14,10 @@ return {
   lazy = false,
   priority = 1000,
   config = function()
-    vim.o.background = 'light'
+    vim.o.background = 'dark'
 
     require('ayu').setup {
-      mirage = false,
+      mirage = true,
       terminal = false,
     }
     vim.cmd.colorscheme 'ayu'
