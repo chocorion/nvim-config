@@ -25,7 +25,7 @@ return { -- LSP Configuration & Plugins
         map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
         map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
         map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-        -- map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+        map('gws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[g]o [w]orkspace [s]ymbols')
         map('<leader>lr', vim.lsp.buf.rename, '[R]ename')
         map('<leader>la', vim.lsp.buf.code_action, '[A]ction')
         -- map('<leader>lf', vim.lsp.buf.format, '[F]ormat')

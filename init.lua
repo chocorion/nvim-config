@@ -36,11 +36,14 @@ vim.opt.tabstop = 4
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
-
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('i', 'jk', '<esc>')
+
+-- Basic tabs mappings
+vim.keymap.set('n', '<left>', 'gT')
+vim.keymap.set('n', '<right>', 'gt')
 
 vim.keymap.set('n', 'U', '<C-r>', { noremap = true })
 
@@ -50,8 +53,14 @@ vim.keymap.set('v', '>', '>gv')
 vim.keymap.set('n', '<leader>fw', '<cmd>w!<cr>', { desc = '[w]rite current file' })
 vim.keymap.set('n', '<leader>fq', '<cmd>q!<cr>', { desc = '[q]uit current file' })
 vim.keymap.set('n', '<leader>fx', '<cmd>x<cr>', { desc = '[x] wq! current file' })
+
+-- Manage split
 vim.keymap.set('n', '<leader>wh', '<cmd>split<cr>', { desc = '[h]orizontal split' })
 vim.keymap.set('n', '<leader>wv', '<cmd>vsplit<cr>', { desc = '[v]ertical split' })
+vim.keymap.set('n', '<M-h>', '<c-w>5<', { desc = 'increase tab size (horizontal)' })
+vim.keymap.set('n', '<M-l>', '<c-w>5>', { desc = 'decrease tab size (horizontal)' })
+vim.keymap.set('n', '<M-k>', '<c-W>+', { desc = 'decrease tab size (vertical)' })
+vim.keymap.set('n', '<M-j>', '<c-W>-', { desc = 'decrease tab size (vertical)' })
 
 vim.keymap.set({ 'n', 'v' }, 'H', '^', { desc = 'Go to line start' })
 vim.keymap.set({ 'n', 'v' }, 'L', '$', { desc = 'Go to line end' })
@@ -68,7 +77,6 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
-
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
