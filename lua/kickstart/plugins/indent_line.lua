@@ -5,7 +5,7 @@ return { -- Add indentation guides even on blank lines
   main = 'ibl',
   ---@module "ibl"
   ---@type ibl.config
-  opts = {
-    exclude = { filetypes = { 'dashboard', 'help', '', 'TelescopePrompt' } },
-  },
+  -- opts = {
+  --   exclude = { filetypes = { 'help', '', 'TelescopePrompt' } },
+  -- },
 }
