@@ -16,10 +16,6 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = true
 
--- Disable netrw
-vim.g.loaded_netrwPlugin = 1
-vim.g.loaded_netrw = 1
-
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 vim.opt.showtabline = 1
@@ -73,6 +69,12 @@ vim.keymap.set('n', 'U', '<C-r>', { noremap = true })
 
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
+
+-- Add missing shortcuts
+vim.keymap.set('o', 'ir', 'i[')
+vim.keymap.set('o', 'ar', 'a[')
+vim.keymap.set('o', 'ia', 'i<')
+vim.keymap.set('o', 'aa', 'a<')
 
 -- Tab mapping
 vim.keymap.set('n', '<left>', 'gT')
