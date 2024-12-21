@@ -12,7 +12,6 @@
 --       )  |  \  `.___________|/
 --       `--'   `--'
 --
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = true
@@ -23,7 +22,7 @@ vim.g.loaded_netrw = 1
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
-vim.opt.showtabline = 2
+vim.opt.showtabline = 1
 vim.opt.number = true
 vim.opt.mouse = 'a'
 vim.opt.showmode = false -- already in status line
@@ -36,7 +35,7 @@ vim.opt.hlsearch = true
 vim.opt.smartcase = true
 vim.opt.signcolumn = 'yes'
 vim.opt.updatetime = 250
-vim.opt.timeoutlen = 500 -- Displays which-key popup sooner
+vim.opt.timeoutlen = 300 -- Displays which-key popup sooner
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.list = true
@@ -63,6 +62,7 @@ vim.keymap.set('v', '>', '>gv')
 -- Tab mapping
 vim.keymap.set('n', '<left>', 'gT')
 vim.keymap.set('n', '<right>', 'gt')
+vim.keymap.set('n', '<TAB>', 'gt')
 
 --  File mapping
 vim.keymap.set('n', '<leader>fw', '<cmd>w!<cr>', { desc = '[w]rite current file' })
