@@ -22,7 +22,7 @@ vim.g.loaded_netrw = 1
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
-vim.opt.showtabline = 1
+vim.opt.showtabline = 2
 vim.opt.number = true
 vim.opt.mouse = 'a'
 vim.opt.showmode = false -- already in status line

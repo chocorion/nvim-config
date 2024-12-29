@@ -1,14 +1,10 @@
 return {
-  'chocorion/neovim-ayu',
+  'sainnhe/everforest',
   lazy = false,
   priority = 1000,
   config = function()
     vim.o.background = 'dark'
-
-    require('ayu').setup {
-      mirage = true,
-      terminal = false,
-    }
-    vim.cmd.colorscheme 'ayu'
+    vim.g.everforest_background = 'hard'
+    vim.cmd.colorscheme 'everforest'
   end,
 }
