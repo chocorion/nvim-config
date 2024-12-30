@@ -22,7 +22,7 @@ vim.g.loaded_netrw = 1
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
-vim.opt.showtabline = 2
+vim.opt.showtabline = 1
 vim.opt.number = true
 vim.opt.mouse = 'a'
 
@@ -103,6 +103,14 @@ vim.keymap.set({ 'n', 'v' }, 'K', '5k', { desc = 'Quick down' })
 
 vim.keymap.set('n', 'gE', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', 'ge', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
+
+vim.keymap.set('n', '<leader>ta', '<cmd>$tabnew<cr>', { desc = '[a]dd' })
+vim.keymap.set('n', '<leader>tc', '<cmd>tabclose<cr>', { desc = '[c]lose' })
+vim.keymap.set('n', '<leader>to', '<cmd>tabonly<cr>', { desc = '[o]nly' })
+vim.keymap.set('n', '<leader>tn', '<cmd>tabn<cr>', { desc = '[n]ext' })
+vim.keymap.set('n', '<leader>tp', '<cmd>tabp<cr>', { desc = '[p]revious' })
+vim.keymap.set('n', '<leader>tmn', '<cmd>-tabmove<cr>', { desc = '[m]ove [n]ext' })
+vim.keymap.set('n', '<leader>tmp', '<cmd>+tabmove<cr>', { desc = '[m]ove [p]revious' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`

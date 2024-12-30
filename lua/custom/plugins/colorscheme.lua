@@ -1,10 +1,10 @@
 return {
-  'sainnhe/everforest',
+  'zenbones-theme/zenbones.nvim',
   lazy = false,
+  dependencies = 'rktjmp/lush.nvim',
   priority = 1000,
   config = function()
-    vim.o.background = 'dark'
-    vim.g.everforest_background = 'hard'
-    vim.cmd.colorscheme 'everforest'
+    vim.o.background = 'light'
+    vim.cmd.colorscheme 'zenwritten'
   end,
 }
