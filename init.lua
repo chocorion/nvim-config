@@ -25,8 +25,19 @@ vim.g.loaded_netrw = 1
 vim.opt.showtabline = 2
 vim.opt.number = true
 vim.opt.mouse = 'a'
-vim.opt.showmode = false -- already in status line
-vim.opt.clipboard = 'unnamedplus'
+
+-- Don't show the mode, since it's already in the status line
+vim.opt.showmode = false
+
+-- Sync clipboard between OS and Neovim.
+--  Schedule the setting after `UiEnter` because it can increase startup-time.
+--  Remove this option if you want your OS clipboard to remain independent.
+--  See `:help 'clipboard'`
+vim.schedule(function()
+  vim.opt.clipboard = 'unnamedplus'
+end)
+
+-- Enable break indent
 vim.opt.breakindent = true
 vim.opt.undofile = true
 vim.opt.incsearch = true
@@ -35,7 +46,11 @@ vim.opt.hlsearch = true
 vim.opt.smartcase = true
 vim.opt.signcolumn = 'yes'
 vim.opt.updatetime = 250
-vim.opt.timeoutlen = 300 -- Displays which-key popup sooner
+
+-- Decrease mapped sequence wait time
+vim.opt.timeoutlen = 300
+
+-- Configure how new splits should be opened
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.list = true
@@ -117,9 +132,12 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
-  vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
+  local out = vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
+  if vim.v.shell_error ~= 0 then
+    error('Error cloning lazy.nvim:\n' .. out)
+  end
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
@@ -135,7 +153,7 @@ require('lazy').setup {
       --
       -- Examples:
       --  - va)  - [V]isually select [A]round [)]paren
-      --  - yinq - [Y]ank [I]nside [N]ext [']quote
+      --  - yinq - [Y]ank [I]nside [N]ext [Q]uote
       --  - ci'  - [C]hange [I]nside [']quote
       require('mini.ai').setup { n_lines = 500 }
       require('mini.comment').setup()
