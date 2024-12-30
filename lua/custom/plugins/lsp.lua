@@ -68,7 +68,7 @@ return { -- LSP Configuration & Plugins
 
     require('mason').setup()
 
-    local ensure_installed = { 'stylua', 'ts_ls', 'angularls', 'eslint' }
+    local ensure_installed = { 'stylua', 'ts_ls', 'angularls', 'eslint', 'cssls', 'emmet_language_server' }
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
     require('mason-lspconfig').setup {
