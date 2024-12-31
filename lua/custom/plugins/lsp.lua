@@ -44,7 +44,6 @@ return { -- LSP Configuration & Plugins
     --  - settings (table): Override the default settings passed when initializing the server.
     --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
     local servers = {
-      ts_ls = {},
       angularls = {
         filetypes = { 'angular.html', 'typescript', 'javascript' },
       },
@@ -68,7 +67,7 @@ return { -- LSP Configuration & Plugins
 
     require('mason').setup()
 
-    local ensure_installed = { 'stylua', 'ts_ls', 'angularls', 'eslint', 'cssls', 'emmet_language_server' }
+    local ensure_installed = { 'lua_ls', 'stylua', 'angularls', 'eslint', 'cssls', 'emmet_language_server' }
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
     require('mason-lspconfig').setup {

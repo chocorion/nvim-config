@@ -9,6 +9,12 @@ return {
       { '<leader>a', group = '[a]ngular' },
       { '<leader>a_', hidden = true },
 
+      { '<leader>c', group = '[c]ode' },
+      { '<leader>c_', hidden = true },
+
+      { '<leader>ct', group = '[t]ypescript' },
+      { '<leader>ct_', hidden = true },
+
       { '<leader>l', group = '[l]sp' },
       { '<leader>l_', hidden = true },
 

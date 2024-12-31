@@ -52,7 +52,6 @@ vim.opt.splitbelow = true
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.opt.inccommand = 'split' -- show live substitution
-vim.opt.cursorline = true
 vim.opt.scrolloff = 8
 vim.opt.termguicolors = true
 vim.opt.shiftwidth = 4
@@ -64,6 +63,11 @@ vim.keymap.set('i', 'jk', '<esc>')
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
+
+-- From reddit
+vim.keymap.set('n', 'yc', '<cmd>norm yygcc<cr>p', { noremap = true, desc = 'Duplicate line and comment original' })
+vim.keymap.set('n', '<C-c>', 'ciw')
+vim.keymap.set({ 'n', 'v' }, 'mm', '%', { desc = 'match next (){}[] in line' })
 
 vim.keymap.set('n', 'U', '<C-r>', { noremap = true })
 
@@ -103,8 +107,13 @@ vim.keymap.set({ 'n', 'v' }, 'L', '$', { desc = 'Go to line end' })
 vim.keymap.set({ 'n', 'v' }, 'J', '5j', { desc = 'Quick up' })
 vim.keymap.set({ 'n', 'v' }, 'K', '5k', { desc = 'Quick down' })
 
-vim.keymap.set('n', 'gE', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
-vim.keymap.set('n', 'ge', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
+vim.keymap.set('n', 'gE', function()
+  vim.diagnostic.jump { count = 1, float = true }
+end, { desc = 'Go to previous [D]iagnostic message' })
+
+vim.keymap.set('n', 'ge', function()
+  vim.diagnostic.jump { count = -1, float = true }
+end, { desc = 'Go to next [D]iagnostic message' })
 
 vim.keymap.set('n', '<leader>ta', '<cmd>$tabnew<cr>', { desc = '[a]dd' })
 vim.keymap.set('n', '<leader>tc', '<cmd>tabclose<cr>', { desc = '[c]lose' })
@@ -195,6 +204,18 @@ require('lazy').setup {
 --     vim.lsp.start(config)
 --   end,
 -- })
+
+local focus_float = function()
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_win_get_config(win).relative ~= '' then
+      vim.api.nvim_set_current_win(win)
+      return
+    end
+  end
+  print 'Pas de fenêtre flottante détectée'
+end
+
+vim.keymap.set('n', '<leader>wf', focus_float, { desc = 'Focus float window' })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
